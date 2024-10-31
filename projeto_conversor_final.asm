@@ -161,41 +161,6 @@ fim_inversao_octal:
     syscall
     j menu
 
-octal_para_decimal:
-    li $t1, 0
-    li $t2, 1
-
-entrada_octal:
-    li $v0, 4
-    la $a0, prompt_num
-    syscall
-    li $v0, 8
-    la $a0, buffer_oct
-    li $a1, 12
-    syscall
-    la $a0, buffer_oct
-    li $t0, 0
-
-loop_conversao_octal:
-    lb $t3, 0($a0)
-    beqz $t3, fim_conversao_octal
-    sub $t3, $t3, 48
-    mul $t1, $t1, 8
-    add $t1, $t1, $t3
-    addi $a0, $a0, 1
-    j loop_conversao_octal
-
-fim_conversao_octal:
-    li $v0, 1
-    move $a0, $t1
-    syscall
-
-    la $a0, newline
-    li $v0, 4
-    syscall
-
-    j menu
-    
     finalizar_programa:
     li $v0, 10
     syscall
